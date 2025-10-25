@@ -2,6 +2,18 @@
 #include <string>
 #include <array>
 
+
+bool validateUserPicked(const double &userPickedTemperature, const int &userChooseSize, const int &chooseOffset = 0) {
+    return userPickedTemperature >= (userChooseSize + chooseOffset) ||
+        userPickedTemperature <= (userChooseSize - userChooseSize);
+}
+
+void temperatureChooseShowCase(std::array<std::string, 3> units, const int &chooseOffset = 0) {
+    for (int i = 0; i < units.size(); i++) {
+        std::cout << (i+chooseOffset) << "."<< units[i] << std::endl;
+    }
+}
+
 int main() {
     double userPickedTemp;
     const std::array<std::string, 3> temperatureUnit = {"Celsius", "Fahrenheit", "Kelvin"};
@@ -12,26 +24,20 @@ int main() {
     std::cout << "Hello, please enter the current temperature: ";
     std::cin >> userPickedTemp;
 
-    for (int i = 0; i < temperatureUnit.size(); i++) {
-        std::cout << (i+1) << "."<< temperatureUnit[i] << std::endl;
-    }
+    temperatureChooseShowCase(temperatureUnit, 1);
     std::cout << "What is the temperature unit: ";
     std::cin >> userPickedTempUnit;
 
-    if (userPickedTempUnit >= (temperatureUnit.size() + 1) ||
-        userPickedTempUnit <= (temperatureUnit.size() - temperatureUnit.size())) {
+    if (validateUserPicked(userPickedTempUnit, temperatureUnit.size(), 1)) {
         std::cout << "You entered an invalid desired temperature unit." << std::endl;
         return 0;
     }
 
-    for (int i = 0; i < temperatureUnit.size(); i++) {
-        std::cout << (i+1) << "."<< temperatureUnit[i] << std::endl;
-    }
+    temperatureChooseShowCase(temperatureUnit, 1);
     std::cout << "What is the desired temperature unit: ";
     std::cin >> userDesiredTempUnit;
 
-    if (userDesiredTempUnit >= (temperatureUnit.size() + 1) ||
-        userDesiredTempUnit <= (temperatureUnit.size() - temperatureUnit.size())) {
+    if (validateUserPicked(userPickedTempUnit, temperatureUnit.size(), 1)) {
         std::cout << "You entered an invalid desired temperature unit." << std::endl;
         return 0;
     }
@@ -40,8 +46,7 @@ int main() {
     const std::string& desiredPickedTempString = temperatureUnit[userDesiredTempUnit - 1];
     const std::string& tempChar = temperatureUnitChar[userDesiredTempUnit - 1];
 
-
-    if (userPickedTempString == desiredPickedTempString ) {
+    if (userPickedTempString == desiredPickedTempString) {
         std::cout << "Your desired temperature: " << userPickedTemp << "°" << tempChar<< std::endl;
     }
 
