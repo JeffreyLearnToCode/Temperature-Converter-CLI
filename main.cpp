@@ -3,9 +3,9 @@
 #include <array>
 
 int main() {
-    int userPickedTemp;
+    double userPickedTemp;
     const std::array<std::string, 3> temperatureUnit = {"Celsius", "Fahrenheit", "Kelvin"};
-    const std::array<char, 3> temperatureUnitChar = {'C', 'F', 'K'};
+    const std::array<std::string, 3> temperatureUnitChar = {"C", "F", "K"};
     int userPickedTempUnit;
     int userDesiredTempUnit;
 
@@ -36,9 +36,28 @@ int main() {
         return 0;
     }
 
+    const std::string& userPickedTempString = temperatureUnit[userPickedTempUnit - 1];
+    const std::string& desiredPickedTempString = temperatureUnit[userDesiredTempUnit - 1];
+    const std::string& tempChar = temperatureUnitChar[userDesiredTempUnit - 1];
 
 
+    if (userPickedTempString == desiredPickedTempString ) {
+        std::cout << "Your desired temperature: " << userPickedTemp << "°" << tempChar<< std::endl;
+    }
 
+    if (userPickedTempString == "Celsius" && desiredPickedTempString == "Fahrenheit") {
+        std::cout << "Your desired temperature: " << (userPickedTemp * 9 / 5) + 32 << "°" << tempChar<< std::endl;
+    } else if (userPickedTempString == "Fahrenheit" && desiredPickedTempString == "Celsius") {
+        std::cout << "Your desired temperature: " << (userPickedTemp - 32) * 5 / 9 << "°" << tempChar<< std::endl;
+    } else if (userPickedTempString == "Celsius" && desiredPickedTempString == "Kelvin") {
+        std::cout << "Your desired temperature: " << userPickedTemp + 273.15 << "°" << tempChar<< std::endl;
+    } else if (userPickedTempString == "Kelvin" && desiredPickedTempString == "Celsius") {
+        std::cout << "Your desired temperature: " << userPickedTemp - 273.15 << "°" << tempChar<< std::endl;
+    } else if (userPickedTempString == "Fahrenheit" && desiredPickedTempString == "Kelvin") {
+        std::cout << "Your desired temperature: " << (userPickedTemp - 32) * 5 / 9 + 273.15 << "°" << tempChar<< std::endl;
+    } else if (userPickedTempString == "Kelvin" && desiredPickedTempString == "Fahrenheit") {
+        std::cout << "Your desired temperature: " << (userPickedTemp - 273.15) * 9 / 5 + 32 << "°" << tempChar<< std::endl;
+    }
 
     return 0;
 }
